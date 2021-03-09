@@ -26,10 +26,11 @@ public class RSTController {
 		return repo.findById(id);
 	}
 
-	/*
-	 * @PostMapping("/") public Car saveCar(@RequestBody Car car) { return
-	 * repo.save(car); }
-	 */
+	
+	  @PostMapping("/") public java.util.List<Car> saveCar(@RequestBody java.util.List<Car> car) 
+	  { return
+	  repo.saveAll(car); }
+	 
 	@GetMapping("/name/{name}")
 	public Car GetNames(@PathVariable("name") String name)
 	{
