@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.service.comparingservice.model.Car;
@@ -21,6 +22,7 @@ public class RSTController {
 	@Autowired
 	private CarRepository repo;
 	@GetMapping("/{id}")
+	@ResponseBody
 	public Optional<Car> getCar(@PathVariable("id") Long  id)
 	{
 		return repo.findById(id);
@@ -32,13 +34,15 @@ public class RSTController {
 	 * java.util.List<Car> car) { return repo.saveAll(car); }
 	 */
 	 
-	@GetMapping("/name/{name}")
+	@GetMapping(value = "/name/{name}" , produces = {org.springframework.http.MediaType.APPLICATION_JSON_VALUE})
+	@ResponseBody
 	public Car GetNames(@PathVariable("name") String name)
 	{
 		Car car=repo.findAllByIdentificationIDIgnoreCase(name);
 		return car;
 	}
 	@GetMapping("/list")
+	@ResponseBody
 	public java.util.List<String> getList()
 	{
 		return repo.findAllNames();
