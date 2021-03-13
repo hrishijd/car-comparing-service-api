@@ -34,14 +34,14 @@ public class RSTController {
 	 * java.util.List<Car> car) { return repo.saveAll(car); }
 	 */
 	 
-	@GetMapping(value = "/name/{name}" , produces = {org.springframework.http.MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "/name/{name}" , produces = {org.springframework.http.MediaType.APPLICATION_JSON_VALUE})
 	@ResponseBody
 	public Car GetNames(@PathVariable("name") String name)
 	{
 		Car car=repo.findAllByIdentificationIDIgnoreCase(name);
 		return car;
 	}
-	@GetMapping("/list")
+	@RequestMapping(value="/list", produces = {org.springframework.http.MediaType.APPLICATION_JSON_VALUE})
 	@ResponseBody
 	public java.util.List<String> getList()
 	{
