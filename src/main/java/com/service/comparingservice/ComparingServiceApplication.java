@@ -9,5 +9,5 @@ public class ComparingServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ComparingServiceApplication.class, args);
 	}
-
+	
 }

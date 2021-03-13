@@ -3,11 +3,13 @@ package com.service.comparingservice.controllers;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,14 +36,15 @@ public class RSTController {
 	 * java.util.List<Car> car) { return repo.saveAll(car); }
 	 */
 	 
-	@RequestMapping(value = "/name/{name}" , produces = {org.springframework.http.MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(method = RequestMethod.GET, value = "/name/{name}" , produces = {org.springframework.http.MediaType.APPLICATION_JSON_VALUE})
 	@ResponseBody
 	public Car GetNames(@PathVariable("name") String name)
 	{
 		Car car=repo.findAllByIdentificationIDIgnoreCase(name);
 		return car;
 	}
-	@RequestMapping(value="/list", produces = {org.springframework.http.MediaType.APPLICATION_JSON_VALUE})
+	@CrossOrigin
+	@RequestMapping(method = RequestMethod.GET,value="/list", produces = {org.springframework.http.MediaType.APPLICATION_JSON_VALUE})
 	@ResponseBody
 	public java.util.List<String> getList()
 	{
