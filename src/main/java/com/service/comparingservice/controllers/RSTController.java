@@ -1,5 +1,6 @@
 package com.service.comparingservice.controllers;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.service.comparingservice.model.Car;
+import com.service.comparingservice.model.DataModel;
 import com.service.comparingservice.repositories.CarRepository;
 
 import antlr.collections.List;
@@ -23,7 +25,9 @@ import antlr.collections.List;
 public class RSTController {
 	@Autowired
 	private CarRepository repo;
+	@CrossOrigin
 	@GetMapping("/{id}")
+	@RequestMapping(method = RequestMethod.GET, value = "/{id}" , produces = {org.springframework.http.MediaType.APPLICATION_JSON_VALUE})
 	@ResponseBody
 	public Optional<Car> getCar(@PathVariable("id") Long  id)
 	{
@@ -35,7 +39,7 @@ public class RSTController {
 	 * @PostMapping("/") public java.util.List<Car> saveCar(@RequestBody
 	 * java.util.List<Car> car) { return repo.saveAll(car); }
 	 */
-	 
+	@CrossOrigin
 	@RequestMapping(method = RequestMethod.GET, value = "/name/{name}" , produces = {org.springframework.http.MediaType.APPLICATION_JSON_VALUE})
 	@ResponseBody
 	public Car GetNames(@PathVariable("name") String name)
@@ -46,8 +50,11 @@ public class RSTController {
 	@CrossOrigin
 	@RequestMapping(method = RequestMethod.GET,value="/list", produces = {org.springframework.http.MediaType.APPLICATION_JSON_VALUE})
 	@ResponseBody
-	public java.util.List<String> getList()
+	public java.util.List<DataModel> getList()
 	{
-		return repo.findAllNames();
+		java.util.List<Car> st = repo.findAllNames();
+		java.util.List<DataModel> dm;
+		dm=new ArrayList<>(DataModel.getFromList(st));
+		return dm;
 	}
 }
